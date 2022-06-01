@@ -20,7 +20,7 @@ const dataBelanjaan = [
   },
 ];
 
-const findIndex = (array, filter) => {
+const findIndexArray = (array, filter) => {
   for (let index = 0; index < array.length; index++) {
     if (filter(array[index])) {
       return index;
@@ -47,7 +47,7 @@ const listBelanjaan = (itemList) => {
   for (let index = 0; index < itemList.length; index++) {
     const item = itemList[index];
 
-    const listIndex = findIndex(list, (element) => element.name === item.nama);
+    const listIndex = findIndexArray(list, (element) => element.name === item.nama);
     
     if (listIndex !== -1) {
       list[listIndex].quantity += item.kuantitas;
@@ -65,7 +65,17 @@ const listBelanjaan = (itemList) => {
 };
 
 // boleh dimodifikasi bila ingin menggunakan deklarasi fungsi yang normal
-const totalBelanjaan = null;
+const totalBelanjaan = (itemList) => {
+  let total = 0;
+
+  for (let index = 0; index < itemList.length; index++) {
+    const item = itemList[index];
+    
+    total += (item.harga * item.kuantitas);
+  }
+
+  return total;
+};
 
 // ! JANGAN DIMODIFIKASI
 const main = () => {
