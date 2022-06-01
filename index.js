@@ -20,8 +20,49 @@ const dataBelanjaan = [
   },
 ];
 
+const findIndex = (array, filter) => {
+  for (let index = 0; index < array.length; index++) {
+    if (filter(array[index])) {
+      return index;
+    }
+  }
+
+  return -1;
+}
+
+const mapArray = (array, callback) => {
+  const newArray = [];
+  
+  for (let index = 0; index < array.length; index++) {
+    newArray.push(callback(array[index]));
+  }
+
+  return newArray;
+}
+
 // boleh dimodifikasi bila ingin menggunakan deklarasi fungsi yang normal
-const listBelanjaan = null;
+const listBelanjaan = (itemList) => {
+  const list = [];
+
+  for (let index = 0; index < itemList.length; index++) {
+    const item = itemList[index];
+
+    const listIndex = findIndex(list, (element) => element.name === item.nama);
+    
+    if (listIndex !== -1) {
+      list[listIndex].quantity += item.kuantitas;
+
+      continue;
+    }
+
+    list.push({
+      name: item.nama,
+      quantity: item.kuantitas,
+    });
+  }
+
+  return mapArray(list, (element) => `- ${element.name} x ${element.quantity}`);
+};
 
 // boleh dimodifikasi bila ingin menggunakan deklarasi fungsi yang normal
 const totalBelanjaan = null;
